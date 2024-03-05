@@ -4,7 +4,6 @@ import logger from "./logger.js";
 import dotenv from "dotenv/config";
 
 const app = express();
-//dotenv.config();
 
 app.get("/", (request, response) => {
   logger.log(request);
