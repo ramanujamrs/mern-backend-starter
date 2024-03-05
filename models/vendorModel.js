@@ -15,7 +15,7 @@ const vendorSchema = mongoose.Schema({
   },
   registeredDate: {
     type: Date,
-    required: Date.now,
+    required: false,
   },
 });
 
