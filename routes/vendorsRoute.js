@@ -4,7 +4,7 @@ import logger from "../logger.js";
 
 const router = express.Router();
 
-//Route to save a new Vendor
+// Save a new Vendor
 
 router.post("/", async (request, response) => {
   try {
@@ -30,6 +30,33 @@ router.post("/", async (request, response) => {
     const vendor = await Vendor.create(newVendor);
 
     return response.status(201).send(vendor);
+  } catch (error) {
+    logger.log("error", error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// Get all vendors
+router.get("/", async (request, response) => {
+  try {
+    const vendors = await Vendor.find({});
+
+    return response.status(200).json({
+      count: vendors.length,
+      data: vendors,
+    });
+  } catch (error) {
+    logger.log("error", error.message);
+    response.status(500).send({ message: error.message });
+  }
+});
+
+// Get a particular vendor by id
+router.get("/:id", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const vendor = await Vendor.findById(id);
+    return response.status(200).json(vendor);
   } catch (error) {
     logger.log("error", error.message);
     response.status(500).send({ message: error.message });
